@@ -39,7 +39,7 @@ class SignUp(APIView):
         new_user.save()
 
         group, created = Group.objects.get_or_create(name=group_name)
-        group.user.add(new_user)
+        group.user = new_user
         group.save()
         return Response("it's work")
 

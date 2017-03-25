@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'account',
+    'online_judge',
 ]
 
 MIDDLEWARE = [
@@ -119,7 +120,7 @@ REST_FRAMEWORK = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
 
