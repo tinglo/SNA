@@ -32,8 +32,18 @@ class RankList(APIView):
         
         top_score_list_for_groups  = []
         for group in Group.objects.all():
-            top_score = ScoreRecord.objects.filter(group=group).order_by('nmi').first()
-            top_score_list_for_groups.append(top_score.serialize())
+            score_record_of_group = ScoreRecord.objects.filter(group=group)
+            top_nmi_record = score_record_of_group.order_by('-nmi').first()
+            top_anc_record = score_record_of_group.order_by('-anc').first()
+            top_score_list_for_groups.append(
+                    {
+                        "group": group.name,
+                        "details" : {
+                            "nmi": top_nmi_record.serialize(), 
+                            "anc": top_anc_record.serialize()
+                        }
+                    }
+                )
             
         # TODO sort top_score_list_for_groups
         return Response(top_score_list_for_groups, status=status.HTTP_200_OK)
