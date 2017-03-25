@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from account.models import Group
 from .models import ScoreRecord
 
 
@@ -29,13 +30,13 @@ class RankList(APIView):
 
     def get(self, request):
         
-        score_record_list = ScoreRecord.objects.all()
-
-        result = []
-        for score_record in score_record_list:
-            result.append(score_record.serialize())
+        top_score_list_for_groups  = []
+        for group in Group.objects.all():
+            top_score = ScoreRecord.objects.filter(group=group).order_by('nmi').first()
+            top_score_list_for_groups.append(top_score.serialize())
             
-        return Response(result, status=status.HTTP_200_OK)
+        # TODO sort top_score_list_for_groups
+        return Response(top_score_list_for_groups, status=status.HTTP_200_OK)
 
 
 class Upload(APIView):

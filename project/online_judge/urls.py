@@ -18,9 +18,11 @@ from django.conf.urls import url, include
 from .views import (
                 Upload,
                 Rank,
+                RankList,
             )
 
 urlpatterns = [
         url(r'upload/$', Upload.as_view()),
         url(r'rank/$', Rank.as_view()),
+        url(r'rank_list/$', RankList.as_view()),
 ]
