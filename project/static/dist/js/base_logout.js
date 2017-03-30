@@ -1,0 +1,1 @@
+function logout(){$.ajax({url:"/account/signout/",type:"POST",complete:function(o,t,n){200===o.status&&(window.location.href="/")}})}

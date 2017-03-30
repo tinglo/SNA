@@ -1,0 +1,38 @@
+@import "topnav";
+$table-font-size: 16px;
+
+html{
+  width: 100%;
+}
+body {
+  margin: 0;
+  width: 100%;
+} 
+.content{
+  margin-top: $navbar-height;
+}
+
+.table-border{
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 20px;
+  width: 80%;
+  margin: 100px auto 0 auto;
+}
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  text-align: center;
+  padding: 13px 0 13px 0;
+  width: 60px;
+  font-size: $table-font-size;
+}
+.table > thead > tr,
+.table > tbody > tr{
+  padding: 20px;
+}
+

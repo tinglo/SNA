@@ -1,0 +1,32 @@
+{% extends 'base_generic.html' %}
+
+{% block css %}
+{% load staticfiles %}
+<link href="{% static 'dist/css/upload.css' %}" rel="stylesheet" type="text/css" /> 
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	{% if request.user.is_authenticated %}
+	<script>
+		var current_group = "{{request.user.account_group.name}}";
+	</script> 
+  <div class="content">
+  	<p id="todayCount"></p>
+    <form  method="POST" enctype="multipart/form-data">
+	  <input accept="text/plain" type="file" name="result" required/>
+	  <button class="submit-button btn btn-md btn-style" type="submit">建立完成</button>
+	</form>
+  </div>
+  {% else %}
+  <script>
+  	alert('使用者尚未登入');
+  	window.location.href = '/account/signin/';
+  </script>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'dist/js/upload.js' %}"></script> 
+{% endblock %}

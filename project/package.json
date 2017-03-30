@@ -1,0 +1,17 @@
+{
+  "name": "shareclass",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "npm install gulp -save-dev && npm install gulp-sass --save-dev && npm install gulp-uglify --save-dev && npm install gulp-connect --save-dev "
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.0.1"
+  }
+}
