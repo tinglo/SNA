@@ -1,0 +1,72 @@
+{% extends 'base_generic.html' %}
+
+{% block css %}
+{% load staticfiles %}
+<link href="{% static 'dist/css/upload.css' %}" rel="stylesheet" type="text/css" /> 
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	{% if request.user.is_authenticated %}
+	<script>
+		var current_group = "{{request.user.account_group.name}}";
+	</script> 
+  <div class="content" id="contentId">
+    <div class="title-border">
+      <div class="title">
+        <h1>Submit Results</h1>
+      </div>      
+    </div>
+    <div class="remain-section" id="remainId">
+      <p>本日剩餘上傳次數</p>
+  	  <h4 id="todayCount"></h4> 
+      <p>次</p>
+    </div>
+    <form id="formId" method="POST" enctype="multipart/form-data">
+      <div class="upload-section">
+        <div class="upload-btn">
+          <input accept="text/plain" type="file" name="result" id="fileId" onchange="showFileName(this.files)" required/>
+          <div class="upload-btn-inner">
+            <i class="fa fa-upload" aria-hidden="true"></i>
+          </div>
+        </div>
+        <p class="file-name-style" id="fileName">點選此區域選取檔案</p>
+      </div>
+	    <button class="btn btn-lg btn-style " type="submit">開始評分</button>
+	  </form>
+    <div class="wait-style" id="waitId" style="display: none">
+      <h1>評分中， 請耐心等候</h1> <h2>...</h2>
+      <img src="/static/dist/cat.gif" class="gif-style">
+      <p>"Fooling Around" by Denis Sazhin / Iconka cc @carlosriveroll </p>
+    </div>
+    <div class="forbidden-upload" id="forbiddenId">
+      <h1>A little rest goes a long way</h1>
+      <img src="/static/dist/sleep.gif" class="sleep-style">
+      <p>OH-TOTORO:Studio Ghibli’s commercials for the Nisshin Seifun Group</p>
+    </div>
+  </div>
+  {% else %}
+  <script>
+    swal({
+      title: "使用者尚未登入",
+      showCancelButton: false,
+      type: "error",
+      confirmButtonColor: "#5CADAD",
+      
+      confirmButtonText: "前往登入頁面",
+      closeOnConfirm: false,
+      closeOnCancel: false
+    },
+    function(isConfirm){
+      if (isConfirm) {
+        window.location.href = '/account/signin/';
+      }
+    });
+  </script>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'dist/js/upload.js' %}"></script> 
+{% endblock %}

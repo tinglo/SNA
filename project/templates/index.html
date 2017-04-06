@@ -1,0 +1,46 @@
+{% extends 'base_generic.html' %}
+
+{% block css %}
+{% load staticfiles %}
+<link href="{% static 'dist/css/index.css' %}" rel="stylesheet" type="text/css" /> 
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="content">
+		<div class="title-border">
+			<div class="title">
+				<h1>Leaderboard</h1>
+				<p>(此排行分數為記錄各組最高NMI以及ANC)</p>
+			</div>			
+		</div>
+		<div class="table-border">
+			<div class="sort-section">
+				<p>排序:</p>
+				<input class="sort-button" type="button" value="NMI" onclick="sortNMI()" >
+				<input class="sort-button" type="button" value="ANC" onclick="sortANC()">      
+		  </div>
+		  <table class="table table-striped">
+		    <thead>
+		      <tr>
+		        <th>排名</th>
+		        <th>組名</th>
+		        <th>NMI</th>
+		        <th>ANC</th>
+		        <th>最後上傳時間</th>
+		        <th>總上傳次數</th>
+		      </tr>
+		    </thead>
+		    <tbody id="tableNMI">	    
+ 				</tbody> 
+		    <tbody id="tableANC"  style="display:none">	    
+ 				</tbody>
+		  </table>
+	  </div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'dist/js/index.js' %}"></script> 
+{% endblock %}
