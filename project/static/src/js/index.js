@@ -16,9 +16,9 @@ $(document).ready(function() {
     });
 });
 function showData(dataObj){
-    dataObj.push({'group': 'K-means Method','details': {'anc': 0, 'nmi': 0, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});
-    dataObj.push({'group': 'Random Method','details': {'anc': 0, 'nmi': 0, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});
-    dataObj.push({'group': 'Louvain Method','details': {'anc': 0.5016, 'nmi': 0, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});
+    dataObj.push({'group': 'K-means Method','details': {'anc': 0.5200, 'nmi': 0.0640, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});
+    dataObj.push({'group': 'Random Method','details': {'anc': 0.5800, 'nmi': 0.4286, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});
+    dataObj.push({'group': 'Louvain Method','details': {'anc': 0.5225, 'nmi': 0.0956, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});
     dataObj.push({'group': 'Girvan-Newman Method','details': {'anc': 0, 'nmi': 0, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});
     dataObj.push({'group': 'Label Propagation Method','details': {'anc': 0, 'nmi': 0, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});
     dataObj.push({'group': 'Kernighan-Lin Bisection Method','details': {'anc': 0, 'nmi': 0, 'latest_time': 'null', 'today_count': 'null', 'total_count': 'null'}});

@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 
 from account.models import Group
 from .models import ScoreRecord
-
+from sklearn.metrics.cluster import normalized_mutual_info_score
 
 from rest_framework.authentication import SessionAuthentication 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -102,48 +102,50 @@ class Upload(APIView):
         fpr_detect = open(filepath,'r')
         detect = fpr_detect.read()
         detect = detect.strip('\n')
-        detect_list  = detect.split('\n')
-        detect_cluster_num = len(detect_list)        
+        detect_list  = detect.split('\n')      
+        
+        detect_node_cluster_dic = {}
+        
+        detect_cluster = []
+        detect_node_cluster_list = [-1]*5000
+        
+        for d in detect_list:
+            d_list = d.split('\t')
+            detect_node_cluster_dic[int(d_list[0])] = d_list[1]
+            detect_node_cluster_list[int(d_list[0])-1] = d_list[1]
 
-        print(detect_cluster_num)
+            if d_list[1] not in detect_cluster:
+                detect_cluster.append(d_list[1])
+
         #### nmi 
-        # detect_compare_nmi = []
-        # for k in ans_dic_cluster.keys():
-        #     if(k not in detect_dic_cluster.keys()):
-        #         detect_compare_nmi.append(0)
-        #     else:
-        #         len_ans = 
-        #         len_detect = len(detect_dic_cluster[k])
-        #         if len_ans > len_detect:
-        #             tmp = [-1]*(len_ans - len_detect)
-        #             detect_dic_cluster[k].extend(tmp)
-        #             detect_compare_nmi.append(normalized_mutual_info_score(ans_dic_cluster[k], detect_dic_cluster[k]))
-                
-        #         if len_ans < len_detect:
-        #             same_list = list(set(detect_dic_cluster[k]).intersection(ans_dic_cluster[k]))
-        #             tmp = [-1]*(len_ans - len(same_list))
-        #             same_list.extend(tmp)
-
-        #             detect_compare_nmi.append(normalized_mutual_info_score(ans_dic_cluster[k], same_list))
-                
-        #         if len_ans == len_detect:
-        #             detect_compare_nmi.append(normalized_mutual_info_score(ans_dic_cluster[k], detect_dic_cluster[k]))      
-
+        fpr_ans = open('./file/ans/directNet_ans.txt', 'r')
+        ans_data = fpr_ans.readlines()
+        
+        ans_node_cluster_list = []
+        for a in ans_data:
+            a = a.replace('\n', '')
+            ans_node_cluster_list.append(a.split('\t')[1]) 
+        
+        nmi_answer = normalized_mutual_info_score(ans_node_cluster_list, detect_node_cluster_list)        
 
         #### anc
-        ans_cluster_num = 75149
+        ans_cluster_num = 200
+        detect_cluster_num = len(detect_cluster)
+
         tmp_child =  abs(ans_cluster_num-detect_cluster_num)
         tmp_pa = (2*ans_cluster_num)
         anc_answer = 1-(tmp_child/tmp_pa)
-        if anc_answer < 0:
+        
+        if anc_answer < 0 or detect_cluster_num < 1:
             anc_answer = 0
         
 
         # store score record
 
         score_record = ScoreRecord()
-        score_record.nmi = 0
+        score_record.nmi = nmi_answer
         score_record.anc = anc_answer
+        score_record.total_score = nmi_answer + anc_answer
 
         return score_record  
 

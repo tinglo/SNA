@@ -1,8 +1,7 @@
 var GLOBAL = {
-    uploadLimit: 40,
+    uploadLimit: 20,
     todayCount: 0
 }
-
 window.GLOBAL = GLOBAL;
 
 
@@ -37,7 +36,7 @@ $(document).ready(function() {
                 }
             }
             else{
-                alert(jqXHR.status);
+                swal(jqXHR.responseText);
             }                   
         }
     });
@@ -51,9 +50,9 @@ $('form').on('submit',(function(e) {
     var fd = new FormData($(this)[0]);
     var fileData = $('#fileId').get(0).files[0];
 
-    if(fileData.size > 20000000){ //20MB
+    if(fileData.size > 10000000){ //10MB
         swal({
-          title: "檔案大小不得超過20MB!",
+          title: "檔案大小不得超過10MB!",
           type: "warning",
           confirmButtonColor: "#5CADAD",
           confirmButtonText: "了解",
@@ -101,7 +100,21 @@ $('form').on('submit',(function(e) {
                     });                    
                 }
                 else{
-                    alert(jqXHR.responseText);
+                    swal({
+                      title: "上傳格式錯誤",
+                      showCancelButton: false,
+                      type: "error",
+                      confirmButtonColor: "#5CADAD",
+                      
+                      confirmButtonText: "重新上傳",
+                      closeOnConfirm: false,
+                      closeOnCancel: false
+                    },
+                    function(isConfirm){
+                      if (isConfirm) {
+                        location.reload();
+                      }
+                    });
                 }           
             }
         });
