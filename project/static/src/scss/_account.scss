@@ -51,3 +51,8 @@ $panel-width: 500px;
 .btn-style:hover{
   background-color:  darken(#B3D9D9, 20%);
 }
+@media screen and (max-width: 767px){
+  .account-panel{
+    width: 90%;
+  }
+}

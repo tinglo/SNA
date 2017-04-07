@@ -29,7 +29,7 @@ $("form").submit(function(e){
             else{
                 if(jqXHR.status === 400){
                     swal({
-                      title: "新密碼確認錯誤",
+                      title: "新密碼輸入不一致",
                       showCancelButton: false,
                       type: "error",
                       confirmButtonColor: "#5CADAD",
